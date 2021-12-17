@@ -20,7 +20,8 @@ public:
     ~MainWindow();
 
 private slots:
-
+    void drawTable(AdjacencyMatrix ds);
+    void infoAirPort(AirPortList ds);
     void on_btn_Read_clicked();
     void on_btn_OK_clicked();
 
