@@ -56,6 +56,53 @@ void MainWindow::infoAirPort(AirPortList ds)
         ui->tb_2->setItem(i,3,new QTableWidgetItem(num_char));
     }
 }
+
+//Xóa ký tự xuống dòng
+void xoaXuongDong(char* str) {
+    //Lấy độ dài chuỗi str
+    size_t len = strlen(str);
+
+    //Tạo vòng lặp và kiểm tra từng ký tự trong chuỗi
+    int i;
+    for (i = 0; i <= len; i = i + 1) {
+        if (str[i] == '\n') {
+            str[i] = NULL; //Thay thế ký tự rỗng nếu tìm thấy.
+        }
+    }
+}
+
+//Đọc một ma trận kề từ file văn bản.
+int Read(char* filename, AdjacencyMatrix& g, AirPortList& a)
+{
+    FILE* f;
+    fopen_s(&f, filename, "rt");
+    if (f == NULL) return 0;
+    fscanf_s(f, "%d", &g.n);
+    a.n = g.n;
+    int i = 0;
+    char tmp[5];
+    fgets(tmp, 5, f);
+    for (i = 0; i < a.n; i++)
+    {
+        fgets(a.ds[i].code, 5, f);
+        xoaXuongDong(a.ds[i].code);
+        fgets(a.ds[i].name, 50, f);
+        xoaXuongDong(a.ds[i].name);
+        fgets(a.ds[i].phone, 12, f);
+        xoaXuongDong(a.ds[i].phone);
+        fgets(a.ds[i].addr, 100, f);
+        xoaXuongDong(a.ds[i].addr);
+    }
+
+    for (i = 0; i < g.n; i++)
+        for (int j = 0; j < g.n; j++)
+        {
+            fscanf_s(f, "%d", &g.mt[i][j]);
+        }
+    fclose(f);
+    return 1;
+}
+
 void MainWindow::on_btn_Read_clicked()
 {
 
