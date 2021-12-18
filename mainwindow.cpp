@@ -281,6 +281,15 @@ void MainWindow::on_btn_OK_2_clicked()
         infoAirPort(sb);
     }
 }
+bool checkCode(char* code)
+{
+    for(int i=0;i<sb.n;i++)
+    {
+        if(strcmp(sb.ds[i].code,code)==0)
+            return true;
+    }
+    return false;
+}
 
 
 void MainWindow::on_btn_Write_clicked()
