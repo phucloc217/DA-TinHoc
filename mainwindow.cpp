@@ -128,6 +128,52 @@ int Write(char* filename, AdjacencyMatrix g, AirPortList a)
     return 1;
 }
 
+
+//Hàm Dijkstra
+int[] Dijkstra(AdjacencyMatrix g, int D, int C) {
+	char DanhDau[MAX];
+	int i;
+	int Nhan[MAX], Truoc[MAX], XP, min;
+	for (i = 0; i<g.n; i++) {
+		Nhan[i] = INT_MAX;
+		DanhDau[i] = 0;
+		Truoc[i] = D;
+	}
+	Nhan[D] = 0;
+	DanhDau[D] = 1;
+	XP = D;
+	int j;
+	while (XP != C)
+	{
+		for (j = 0; j<g.n; j++)
+			if (g.mt[XP][j]>0 && Nhan[j]>g.mt[XP][j] + Nhan[XP] && DanhDau[j] == 0)
+			{
+				Nhan[j] = g.mt[XP][j] + Nhan[XP];
+				Truoc[j] = XP;
+			}
+		min = INT_MAX;
+		for (j = 0; j<g.n; j++)
+			if (min>Nhan[j] && DanhDau[j] == 0)
+			{
+				min = Nhan[j];
+				XP = j;
+			}
+		DanhDau[XP] = 1;
+	}
+
+    return Truoc
+
+	/*cout << "Duong Di Ngan Nhat La:" << Nhan[C] << endl;
+	cout << C << " <- " << Truoc[C];
+	i = Truoc[C];
+	while (i != D)
+	{
+		i = Truoc[i];
+		cout << " <- " << i;
+	}*/
+}
+
+
 void MainWindow::on_btn_Read_clicked()
 {
     stt=1;
