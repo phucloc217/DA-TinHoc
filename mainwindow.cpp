@@ -172,6 +172,38 @@ int[] Dijkstra(AdjacencyMatrix g, int D, int C) {
 		cout << " <- " << i;
 	}*/
 }
+//Hàm Prim
+int minKey(int key[], bool mstSet[], AdjacencyMatrix g) //ham tim dinh co gia tri nho nhap trong tap dinh
+{
+    // khởi tạo giá trị nhỏ nhất
+    int min = INT_MAX, min_index;
+
+    for (int v = 0; v < g.n; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+
+    return min_index;
+}
+void printPrim(int parent[], AdjacencyMatrix g)//ham xuat gia tri duoc luu trong mang parent
+{
+    cout << "duong di \do dai\n";
+    for (int i = 1; i < g.n; i++)
+        cout << parent[i] << " - " << i << " \t" << g.mt[i][parent[i]] << " \n";
+}
+void primMST(AdjacencyMatrix g)
+{
+
+    int parent[5]; // luu tru mang
+
+
+    int key[5]; //luu gia tri cac canh co trong so nho nhat
+
+
+    bool mstSet[5];// luu cac tap dinh co trong ma tran
+
+
+    for (int i = 0; i < g.n; i++)
+        key[i] = INT_MAX, mstSet[i] = false;
 
 //Hàm kruskal
 void printMST(int a[], int b[], int weight[], AdjacencyMatrix g) 
@@ -250,6 +282,29 @@ void kruskal(AdjacencyMatrix g)
 	}
 
 	printMST(a, b, weight, g); 
+}
+
+    key[0] = 0;
+    parent[0] = -1; // //khoi tao nut goc ma tran
+
+
+    for (int count = 0; count < g.n - 1; count++)
+    {
+
+        int u = minKey(key, mstSet, g);
+
+
+        mstSet[u] = true;
+
+        for (int v = 0; v < g.n; v++)
+
+
+            if (g.mt[u][v] && mstSet[v] == false && g.mt[u][v] < key[v])
+                parent[v] = u, key[v] = g.mt[u][v];
+    }
+
+
+    printPrim(parent, g);
 }
 
 void MainWindow::on_btn_Read_clicked()
