@@ -105,7 +105,7 @@ int Read(char* filename, AdjacencyMatrix& g, AirPortList& a)
 
 
 //Hàm Dijkstra
-void Dijkstra(AdjacencyMatrix g, int D, int C) {
+int[] Dijkstra(AdjacencyMatrix g, int D, int C) {
 	char DanhDau[MAX];
 	int i;
 	int Nhan[MAX], Truoc[MAX], XP, min;
@@ -136,14 +136,16 @@ void Dijkstra(AdjacencyMatrix g, int D, int C) {
 		DanhDau[XP] = 1;
 	}
 
-	cout << "Duong Di Ngan Nhat La:" << Nhan[C] << endl;
+    return Truoc
+
+	/*cout << "Duong Di Ngan Nhat La:" << Nhan[C] << endl;
 	cout << C << " <- " << Truoc[C];
 	i = Truoc[C];
 	while (i != D)
 	{
 		i = Truoc[i];
 		cout << " <- " << i;
-	}
+	}*/
 }
 
 
