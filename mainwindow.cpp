@@ -165,7 +165,6 @@ void MainWindow::on_btn_OK_2_clicked()
 }
 bool checkCode(char* code)
 {
-
     for(int i=0;i<sb.n;i++)
     {
         if(strcmp(sb.ds[i].code,code)==0)
