@@ -172,7 +172,138 @@ int[] Dijkstra(AdjacencyMatrix g, int D, int C) {
 		cout << " <- " << i;
 	}*/
 }
+//Hàm Prim
+int minKey(int key[], bool mstSet[], AdjacencyMatrix g) //ham tim dinh co gia tri nho nhap trong tap dinh
+{
+    // khởi tạo giá trị nhỏ nhất
+    int min = INT_MAX, min_index;
 
+    for (int v = 0; v < g.n; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+
+    return min_index;
+}
+
+void printPrim(int parent[], AdjacencyMatrix g)//ham xuat gia tri duoc luu trong mang parent
+{
+    cout << "duong di \do dai\n";
+    for (int i = 1; i < g.n; i++)
+        cout << parent[i] << " - " << i << " \t" << g.mt[i][parent[i]] << " \n";
+}
+
+void primMST(AdjacencyMatrix g)
+{
+
+    int parent[5]; // luu tru mang
+
+
+    int key[5]; //luu gia tri cac canh co trong so nho nhat
+
+
+    bool mstSet[5];// luu cac tap dinh co trong ma tran
+
+
+    for (int i = 0; i < g.n; i++)
+        key[i] = INT_MAX, mstSet[i] = false;
+
+//Hàm kruskal
+void printMST(int a[], int b[], int weight[], AdjacencyMatrix g) 
+{
+	int Minweight = 0; 
+	for (int i = 0; i < g.n - 1; i++)
+	{
+		cout << "duong di: " << a[i] << "-" << b[i] << " "
+			<< "do dai: " << weight[i] << endl;
+		Minweight += weight[i];
+	}
+	cout << "gia tri duong di nho nhat " << Minweight << endl; 
+}
+
+int findParent(int node) {
+	while (parent[node] >= 0)
+		node = parent[node];
+
+	return node;
+}
+
+int findParentPathCompression(int node)
+{
+	if (node == parent[node]) return node;
+	return parent[node] = findParentPathCompression(parent[node]);
+}
+
+
+void kruskal(AdjacencyMatrix g) 
+{
+	fill_n(parent, g.n, -1);
+	int u, v, k = 0, count = 0;
+	int firstNode, secondNode;
+	int a[6];
+	int b[6]; 
+	int weight[7]; 
+	int minimum;
+
+	for (int i = 0; i < g.n; i++)
+		for (int j = 0; j < g.n; j++)
+			if (g.mt[i][j] == 0) 
+				g.mt[i][j] = INT_MAX; 
+
+	while (count < g.n - 1)
+	{
+		minimum = INT_MAX;
+
+		for (int i = 0; i < g.n; i++)
+		{
+			for (int j = 0; j < g.n; j++)
+			{
+				if (g.mt[i][j] < minimum)
+				{
+					minimum = g.mt[i][j]; 
+					firstNode = i; 
+					secondNode = j; 
+				}
+			}
+		}
+
+		u = findParent(firstNode);
+		v = findParent(secondNode);
+
+
+		if (u != v) 
+		{
+			parent[v] = u;
+			a[k] = firstNode; 
+			b[k] = secondNode; 
+			weight[k] = g.mt[firstNode][secondNode]; 
+			count++;
+			k++;
+		}
+
+		g.mt[firstNode][secondNode] = g.mt[secondNode][firstNode] = INT_MAX; 
+	}
+
+	printMST(a, b, weight, g); 
+}
+
+    key[0] = 0;
+    parent[0] = -1; // //khoi tao nut goc ma tran
+    for (int count = 0; count < g.n - 1; count++)
+    {
+
+        int u = minKey(key, mstSet, g);
+
+
+        mstSet[u] = true;
+
+        for (int v = 0; v < g.n; v++)
+
+
+            if (g.mt[u][v] && mstSet[v] == false && g.mt[u][v] < key[v])
+                parent[v] = u, key[v] = g.mt[u][v];
+    }
+    printPrim(parent, g);
+}
 
 void MainWindow::on_btn_Read_clicked()
 {
