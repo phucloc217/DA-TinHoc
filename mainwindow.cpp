@@ -184,12 +184,14 @@ int minKey(int key[], bool mstSet[], AdjacencyMatrix g) //ham tim dinh co gia tr
 
     return min_index;
 }
+
 void printPrim(int parent[], AdjacencyMatrix g)//ham xuat gia tri duoc luu trong mang parent
 {
     cout << "duong di \do dai\n";
     for (int i = 1; i < g.n; i++)
         cout << parent[i] << " - " << i << " \t" << g.mt[i][parent[i]] << " \n";
 }
+
 void primMST(AdjacencyMatrix g)
 {
 
@@ -286,8 +288,6 @@ void kruskal(AdjacencyMatrix g)
 
     key[0] = 0;
     parent[0] = -1; // //khoi tao nut goc ma tran
-
-
     for (int count = 0; count < g.n - 1; count++)
     {
 
@@ -302,8 +302,6 @@ void kruskal(AdjacencyMatrix g)
             if (g.mt[u][v] && mstSet[v] == false && g.mt[u][v] < key[v])
                 parent[v] = u, key[v] = g.mt[u][v];
     }
-
-
     printPrim(parent, g);
 }
 
