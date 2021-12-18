@@ -56,6 +56,36 @@ void MainWindow::infoAirPort(AirPortList ds)
         ui->tb_2->setItem(i,3,new QTableWidgetItem(num_char));
     }
 }
+
+//Ghi một ma trận kề lên file văn bản.
+int Write(char* filename, AdjacencyMatrix g, AirPortList a)
+{
+    FILE* f;
+    fopen_s(&f, filename, "wt");
+    if (f == NULL) return 0;
+    fprintf(f, "%d", g.n);
+    for (int i = 0; i < a.n; i++)
+    {
+        fprintf(f, "\n");
+        fprintf(f, a.ds[i].code);
+        fprintf(f, "\n");
+        fprintf(f, a.ds[i].name);
+        fprintf(f, "\n");
+        fprintf(f, a.ds[i].phone);
+        fprintf(f, "\n");
+        fprintf(f, a.ds[i].addr);
+    }
+
+    for (int i = 0; i < g.n; i++)
+    {
+        fprintf(f, "\n");
+        for (int j = 0; j < g.n; j++)
+            fprintf(f, "%d\t", g.mt[i][j]);
+    }
+    fclose(f);
+    return 1;
+}
+
 void MainWindow::on_btn_Read_clicked()
 {
 
