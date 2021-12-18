@@ -57,6 +57,20 @@ void MainWindow::infoAirPort(AirPortList ds)
     }
 }
 
+//Xóa ký tự xuống dòng
+void xoaXuongDong(char* str) {
+    //Lấy độ dài chuỗi str
+    size_t len = strlen(str);
+
+    //Tạo vòng lặp và kiểm tra từng ký tự trong chuỗi
+    int i;
+    for (i = 0; i <= len; i = i + 1) {
+        if (str[i] == '\n') {
+            str[i] = NULL; //Thay thế ký tự rỗng nếu tìm thấy.
+        }
+    }
+}
+
 //Đọc một ma trận kề từ file văn bản.
 int Read(char* filename, AdjacencyMatrix& g, AirPortList& a)
 {
