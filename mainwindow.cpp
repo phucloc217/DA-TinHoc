@@ -173,6 +173,84 @@ int[] Dijkstra(AdjacencyMatrix g, int D, int C) {
 	}*/
 }
 
+//Hàm kruskal
+void printMST(int a[], int b[], int weight[], AdjacencyMatrix g) 
+{
+	int Minweight = 0; 
+	for (int i = 0; i < g.n - 1; i++)
+	{
+		cout << "duong di: " << a[i] << "-" << b[i] << " "
+			<< "do dai: " << weight[i] << endl;
+		Minweight += weight[i];
+	}
+	cout << "gia tri duong di nho nhat " << Minweight << endl; 
+}
+
+int findParent(int node) {
+	while (parent[node] >= 0)
+		node = parent[node];
+
+	return node;
+}
+
+int findParentPathCompression(int node)
+{
+	if (node == parent[node]) return node;
+	return parent[node] = findParentPathCompression(parent[node]);
+}
+
+
+void kruskal(AdjacencyMatrix g) 
+{
+	fill_n(parent, g.n, -1);
+	int u, v, k = 0, count = 0;
+	int firstNode, secondNode;
+	int a[6];
+	int b[6]; 
+	int weight[7]; 
+	int minimum;
+
+	for (int i = 0; i < g.n; i++)
+		for (int j = 0; j < g.n; j++)
+			if (g.mt[i][j] == 0) 
+				g.mt[i][j] = INT_MAX; 
+
+	while (count < g.n - 1)
+	{
+		minimum = INT_MAX;
+
+		for (int i = 0; i < g.n; i++)
+		{
+			for (int j = 0; j < g.n; j++)
+			{
+				if (g.mt[i][j] < minimum)
+				{
+					minimum = g.mt[i][j]; 
+					firstNode = i; 
+					secondNode = j; 
+				}
+			}
+		}
+
+		u = findParent(firstNode);
+		v = findParent(secondNode);
+
+
+		if (u != v) 
+		{
+			parent[v] = u;
+			a[k] = firstNode; 
+			b[k] = secondNode; 
+			weight[k] = g.mt[firstNode][secondNode]; 
+			count++;
+			k++;
+		}
+
+		g.mt[firstNode][secondNode] = g.mt[secondNode][firstNode] = INT_MAX; 
+	}
+
+	printMST(a, b, weight, g); 
+}
 
 void MainWindow::on_btn_Read_clicked()
 {
