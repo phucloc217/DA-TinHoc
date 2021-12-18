@@ -57,6 +57,7 @@ void MainWindow::infoAirPort(AirPortList ds)
     }
 }
 
+<<<<<<< HEAD
 //Xóa ký tự xuống dòng
 void xoaXuongDong(char* str) {
     //Lấy độ dài chuỗi str
@@ -99,6 +100,7 @@ int Read(char* filename, AdjacencyMatrix& g, AirPortList& a)
         {
             fscanf_s(f, "%d", &g.mt[i][j]);
         }
+=======
 //Ghi một ma trận kề lên file văn bản.
 int Write(char* filename, AdjacencyMatrix g, AirPortList a)
 {
@@ -124,6 +126,7 @@ int Write(char* filename, AdjacencyMatrix g, AirPortList a)
         for (int j = 0; j < g.n; j++)
             fprintf(f, "%d\t", g.mt[i][j]);
     }
+>>>>>>> 9f25b5a979966e14ebf805d6c2b30f27e12cc9ea
     fclose(f);
     return 1;
 }
